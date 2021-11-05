@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="java-client-7.6.0-all">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/java-client-7.6.0-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/src/lib/java-client-7.6.0-all.jar!/" />
+    </SOURCES>
+  </library>
+</component>

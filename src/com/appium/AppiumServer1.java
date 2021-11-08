@@ -23,10 +23,11 @@ public class AppiumServer1 {
 
         AppiumServiceBuilder service = new AppiumServiceBuilder();
         service
-                .withAppiumJS(new File("C:\\Program Files\\Appium Server GUI\\resources\\app\\dist\\main.js"))
-                .usingDriverExecutable(new File("C:\\Users\\vagha\\AppData\\Roaming\\npm\\appium"))
+                .withAppiumJS(new File("C:\\Users\\vagha\\AppData\\Roaming\\npm\\node_modules\\appium"))
+                .usingDriverExecutable(new File("C:\\Program Files\\nodejs\\node.exe"))
+                .withCapabilities(dc)
                 .usingPort(4723)
-                .withLogFile(new File("/resources/AppiumLog.txt"));
+                .withLogFile(new File(System.getProperty("user.dir") + "\\resources\\AppiumLog.txt" + Thread.currentThread().getId()));
 
         return AppiumDriverLocalService.buildService(service);
     }

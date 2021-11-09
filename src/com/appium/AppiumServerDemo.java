@@ -8,8 +8,13 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.testng.Assert.assertTrue;
 
@@ -53,6 +58,7 @@ public class AppiumServerDemo {
         caps.setCapability("appActivity", "com.android.calculator2.Calculator");
 
         driver = new AndroidDriver<MobileElement>(service.getUrl(), caps);
+
     }
 
     @AfterMethod
@@ -67,9 +73,33 @@ public class AppiumServerDemo {
         service.stop();
     }
 
+//    @Test
+//    public void test() {
+//        // test code goes here
+//        assertTrue(true);
+//    }
+
     @Test
-    public void test() {
-        // test code goes here
+    public void testADBDevices() {
+        try {
+            Process process = Runtime.getRuntime().exec("adb devices");
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = null;
+
+            Pattern pattern = Pattern.compile("^([a-zA-Z0-9\\-]+)(\\s+)(device)");
+            Matcher matcher;
+
+            while ((line = in.readLine()) != null) {
+                if (line.matches(pattern.pattern())) {
+                    matcher = pattern.matcher(line);
+                    if (matcher.find())
+                        System.out.println("Connected device" + matcher.group(1));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         assertTrue(true);
     }
 }

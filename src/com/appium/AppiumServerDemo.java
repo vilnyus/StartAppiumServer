@@ -6,6 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.BufferedReader;
@@ -80,6 +81,20 @@ public class AppiumServerDemo {
 //    }
 
     @Test
+    public void testCalculator() {
+        MobileElement el2 = (MobileElement) driver.findElementById("com.google.android.calculator:id/digit_1");
+        el2.click();
+        MobileElement el3 = (MobileElement) driver.findElementByAccessibilityId("plus");
+        el3.click();
+        MobileElement el4 = (MobileElement) driver.findElementById("com.google.android.calculator:id/digit_2");
+        el4.click();
+        MobileElement el5 = (MobileElement) driver.findElementByAccessibilityId("equals");
+        el5.click();
+
+        Assert.assertEquals(driver.findElementById("com.google.android.calculator:id/result_final").getText(), "3");
+    }
+
+    @Test
     public void testADBDevices() {
         try {
             Process process = Runtime.getRuntime().exec("adb devices");
@@ -100,6 +115,6 @@ public class AppiumServerDemo {
             e.printStackTrace();
         }
 
-        assertTrue(true);
+        Assert.assertTrue(true);
     }
 }
